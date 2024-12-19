@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: rgb(131,58,180);
+    background: linear-gradient(90deg, rgba(131,58,180,1) 10%, rgba(253,29,29,1) 61%, rgba(252,176,69,1) 100%);
+    color: #fff;
+}
+
+.calculator {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 350px;
+    width: 90%;
+}
+
+#heading {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 0 0 10px rgb(255, 255, 255);
+}
+
+#display {
+    width: 310px;
+    padding: 15px;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    text-align: right;
+}
+
+#display:disabled {
+    cursor: not-allowed;
+}
+
+.button {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+button {
+    padding: 15px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    background: rgb(190, 3, 197);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover {
+    background: rgb(70, 70, 70);
+    box-shadow: 0 0 20px rgb(255, 255, 255);
+    color: rgb(255, 200, 200);
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(213, 215, 214, 0) 80%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease;
+    pointer-events: none;
+}
+
+button:hover::before {
+    transform: translate(-50%, -50%) scale(25);
+    opacity: 0;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.eq {
+    background: rgb(249, 245, 3);
+    color: #fff;
+    font-weight: bold;
+}
+button .eq {
+  width: 500px;
+}
+
+.equal:hover {
+    background: rgb(255, 69, 50);
+    color: rgb(255, 255, 255);
+}
+
+
+
+@media screen and (min-width: 375px) and (max-width: 700px) {
+    .calculator {
+        padding: 15px;
+    }
+
+    #display {
+        font-size: 1.2rem;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    #heading {
+        font-size: 1.5rem;
+    }
+}
+    </style>
+</head>
+<body>
+<div class="calculator">
+  <h1 id="heading">Calculator</h1>
+  <input type="text" id="display" disabled>
+  <div class="button">
+      <button onclick="clearDisplay()" id="clear">C</button>
+      <button onclick="deleteLast()">Del</button>
+      <button onclick="appendValue('%')">%</button>
+      <button onclick="appendValue('/')">/</button>
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button onclick="appendValue('*')">*</button>
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button onclick="appendValue('-')">-</button>
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button onclick="appendValue('+')">+</button>
+      <button onclick="appendValue('0')">0</button>
+      <button onclick="appendValue('.')">.</button>
+      <button onclick="calculatorResult()" class="eq">=</button>
+  </div>
+</div>
+</body>
+<script>
+  const display = document.getElementById('display');
+  const calculator = document.querySelector('.calculator');
+
+  function appendValue(value) {
+      display.value += value;
+  }
+
+  function clearDisplay() {
+      display.value = '';
+  }
+
+  function deleteLast() {
+      display.value = display.value.slice(0, -1);
+  }
+
+  function calculatorResult() {
+      try {
+          display.value = eval(display.value);
+          if(display.value ==="Infinity"){
+            display.value="Error"
+          }
+        }catch(error){
+            console.log("Done")
+        }    
+  }
+</script>
+</html>
+</body>
+</html> 
